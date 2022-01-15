@@ -25,7 +25,7 @@ public class TransactionController {
     private TransactionService service;
 
     @PostMapping
-    public ResponseEntity transaction(@RequestBody TransactionRepresentation transaction) {
+    public ResponseEntity<TransactionRepresentation> transaction(@RequestBody TransactionRepresentation transaction) {
 
         Transaction entity = service.create(mapper.toEntity(transaction));
 
