@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: sboot-account-transactions
+    description: A backend test to simulate accounts transactions
+  main:
+    banner-mode: "off"
+    allow-bean-definition-overriding: true
+  jpa:
+    databasePlatform: org.hibernate.dialect.MariaDBDialect
+  jackson:
+    default-property-inclusion: non_null
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3306/backtest_transactions?useSSL=false&allowMultiQueries=true&serverTimezone=UTC-3
+    driverClassName: org.mariadb.jdbc.Driver
+    username: user
+    password: 123456
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 8080
+management:
+  server:
+    port: 9090

@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  # api:
+  #   image: debona-back-end
+  #   container_name: api-back-end
+  #   restart: always
+  #   build:
+  #     context: "../back-end"
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8081:8080
+  #   depends_on:
+  #     - mariadb
+  #   networks:
+  #     - sboot_network
+
+  mariadb:
+    container_name: maria-db
+    image: mariadb:10.6.4
+    restart: always
+    ports:
+      - 3306:3306
+    command: --init-file /data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: backtest_transactions
+      MYSQL_USER: user
+      MYSQL_PASSWORD: 123456
+    volumes:
+      - mariadb_vol:/var/lib/mysql
+      - ./data/init.sql:/data/application/init.sql
+    networks:
+      sboot_network:
+        aliases:
+          - maria-db
+
+networks:
+  sboot_network: {}
+
+volumes:
+  mariadb_vol:
+    driver: local
