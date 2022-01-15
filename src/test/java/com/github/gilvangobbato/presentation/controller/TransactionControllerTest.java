@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,5 +51,27 @@ public class TransactionControllerTest {
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(representation.getAmount(), response.getBody().getAmount());
+    }
+
+
+    @Test
+    void transactionNoSuchElementException() {
+        TransactionRepresentation representation = TransactionRepresentation.builder()
+                .accountId(1L)
+                .operationTypeId(1L)
+                .amount(BigDecimal.valueOf(20.22))
+                .build();
+        Transaction entity = Transaction.builder()
+                .accountId(1L)
+                .operationTypeId(1L)
+                .amount(BigDecimal.valueOf(20.22))
+                .build();
+
+        when(mapper.toEntity(any())).thenReturn(entity);
+        when(service.create(any())).thenThrow(NoSuchElementException.class);
+
+
+        assertThrows(NoSuchElementException.class, () -> controller.transaction(representation));
+
     }
 }

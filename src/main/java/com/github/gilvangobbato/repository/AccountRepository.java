@@ -7,7 +7,4 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     boolean existsByDocumentNumber(String documentNumber);
 
-    Account getByAccountId(Long accountId);
-
-
 }

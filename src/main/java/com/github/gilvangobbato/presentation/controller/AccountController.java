@@ -32,6 +32,9 @@ public class AccountController {
     @GetMapping(value = "/{accountId}")
     public ResponseEntity<AccountRepresentation> getAccountDetails(@PathVariable("accountId") Long accountId) {
         Account account = service.findById(accountId);
+        if(account == null){
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(mapper.toRepresentation(account));
     }
 }
