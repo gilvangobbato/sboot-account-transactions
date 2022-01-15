@@ -1,6 +1,6 @@
-package com.github.gilvangobbato.repository;
+package com.github.gilvangobbato.domain.repository;
 
-import com.github.gilvangobbato.domain.Account;
+import com.github.gilvangobbato.domain.entities.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {

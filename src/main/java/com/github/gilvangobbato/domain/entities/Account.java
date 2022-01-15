@@ -1,4 +1,4 @@
-package com.github.gilvangobbato.domain;
+package com.github.gilvangobbato.domain.entities;
 
 import lombok.*;
 

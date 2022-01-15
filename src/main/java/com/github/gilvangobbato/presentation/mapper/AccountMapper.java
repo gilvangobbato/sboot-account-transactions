@@ -1,6 +1,6 @@
 package com.github.gilvangobbato.presentation.mapper;
 
-import com.github.gilvangobbato.domain.Account;
+import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.presentation.representation.AccountRepresentation;
 import org.springframework.stereotype.Component;
 

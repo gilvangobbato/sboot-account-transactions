@@ -1,10 +1,10 @@
 package com.github.gilvangobbato.service.impl;
 
-import com.github.gilvangobbato.domain.OperationType;
-import com.github.gilvangobbato.domain.Transaction;
-import com.github.gilvangobbato.repository.AccountRepository;
-import com.github.gilvangobbato.repository.OperationTypeRepository;
-import com.github.gilvangobbato.repository.TransactionRepository;
+import com.github.gilvangobbato.domain.entities.OperationType;
+import com.github.gilvangobbato.domain.entities.Transaction;
+import com.github.gilvangobbato.domain.repository.AccountRepository;
+import com.github.gilvangobbato.domain.repository.OperationTypeRepository;
+import com.github.gilvangobbato.domain.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

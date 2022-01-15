@@ -1,6 +1,6 @@
 package com.github.gilvangobbato.presentation.controller;
 
-import com.github.gilvangobbato.domain.Transaction;
+import com.github.gilvangobbato.domain.entities.Transaction;
 import com.github.gilvangobbato.presentation.mapper.TransactionMapper;
 import com.github.gilvangobbato.presentation.representation.TransactionRepresentation;
 import com.github.gilvangobbato.service.TransactionService;

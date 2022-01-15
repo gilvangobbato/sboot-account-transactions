@@ -1,8 +1,8 @@
 package com.github.gilvangobbato.config;
 
-import com.github.gilvangobbato.repository.AccountRepository;
-import com.github.gilvangobbato.repository.OperationTypeRepository;
-import com.github.gilvangobbato.repository.TransactionRepository;
+import com.github.gilvangobbato.domain.repository.AccountRepository;
+import com.github.gilvangobbato.domain.repository.OperationTypeRepository;
+import com.github.gilvangobbato.domain.repository.TransactionRepository;
 import com.github.gilvangobbato.service.AccountService;
 import com.github.gilvangobbato.service.TransactionService;
 import com.github.gilvangobbato.service.impl.AccountServiceImpl;

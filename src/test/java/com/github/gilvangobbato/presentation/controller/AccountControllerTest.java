@@ -1,6 +1,6 @@
 package com.github.gilvangobbato.presentation.controller;
 
-import com.github.gilvangobbato.domain.Account;
+import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.exceptions.AlreadyExistsException;
 import com.github.gilvangobbato.presentation.mapper.AccountMapper;
 import com.github.gilvangobbato.presentation.representation.AccountRepresentation;

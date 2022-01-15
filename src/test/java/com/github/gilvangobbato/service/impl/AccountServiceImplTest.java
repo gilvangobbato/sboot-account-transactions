@@ -1,8 +1,8 @@
 package com.github.gilvangobbato.service.impl;
 
-import com.github.gilvangobbato.domain.Account;
+import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.exceptions.AlreadyExistsException;
-import com.github.gilvangobbato.repository.AccountRepository;
+import com.github.gilvangobbato.domain.repository.AccountRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
 package com.github.gilvangobbato.service.impl;
 
-import com.github.gilvangobbato.domain.Account;
+import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.exceptions.AlreadyExistsException;
-import com.github.gilvangobbato.repository.AccountRepository;
+import com.github.gilvangobbato.domain.repository.AccountRepository;
 import com.github.gilvangobbato.service.AccountService;
 import com.github.gilvangobbato.util.Constants;
 import lombok.AllArgsConstructor;
@@ -14,6 +14,11 @@ public class AccountServiceImpl implements AccountService {
 
     private AccountRepository repository;
 
+    /**
+     * Create an account, if the account number is already registered will throw AlreadyExistsException
+     * @param account
+     * @return
+     */
     @Override
     public Account create(Account account) {
         if (repository.existsByDocumentNumber(account.getDocumentNumber())) {

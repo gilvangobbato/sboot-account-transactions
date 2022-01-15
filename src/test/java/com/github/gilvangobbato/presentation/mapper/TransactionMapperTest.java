@@ -1,6 +1,6 @@
 package com.github.gilvangobbato.presentation.mapper;
 
-import com.github.gilvangobbato.domain.Transaction;
+import com.github.gilvangobbato.domain.entities.Transaction;
 import com.github.gilvangobbato.presentation.representation.TransactionRepresentation;
 import org.junit.jupiter.api.Test;
 
