@@ -5,6 +5,8 @@ spring:
   main:
     banner-mode: "off"
     allow-bean-definition-overriding: true
+  profiles:
+    active: prd
   jpa:
     databasePlatform: org.hibernate.dialect.MariaDBDialect
   jackson:

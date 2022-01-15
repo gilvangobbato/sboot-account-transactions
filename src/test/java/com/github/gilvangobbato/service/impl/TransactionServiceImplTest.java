@@ -2,6 +2,7 @@ package com.github.gilvangobbato.service.impl;
 
 import com.github.gilvangobbato.domain.OperationType;
 import com.github.gilvangobbato.domain.Transaction;
+import com.github.gilvangobbato.repository.AccountRepository;
 import com.github.gilvangobbato.repository.OperationTypeRepository;
 import com.github.gilvangobbato.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
@@ -26,18 +27,33 @@ public class TransactionServiceImplTest {
     private TransactionRepository repository;
     @Mock
     private OperationTypeRepository operationTypeRepository;
+    @Mock
+    private AccountRepository accountRepository;
     @InjectMocks
     private TransactionServiceImpl service;
+
+    /*
+        When the account does not exist needs to throw NoSuchElementException
+     */
+    @Test
+    void createNoSuchAccount() {
+        OperationType operationType = OperationType.builder()
+                .operationTypeId(10L)
+                .build();
+        when(accountRepository.existsById(any())).thenReturn(false);
+
+        assertThrows(NoSuchElementException.class, () -> service.create(Transaction.builder().build()));
+    }
 
     /*
         When the operationType does not exist needs to throw NoSuchElementException
      */
     @Test
-    void createNoSuchElementException() {
+    void createNoSuchOperationType() {
         OperationType operationType = OperationType.builder()
                 .operationTypeId(10L)
                 .build();
-
+        when(accountRepository.existsById(any())).thenReturn(true);
         when(operationTypeRepository.findById(any())).thenThrow(new NoSuchElementException());
 
         assertThrows(NoSuchElementException.class, () -> service.create(Transaction.builder().build()));
@@ -58,6 +74,7 @@ public class TransactionServiceImplTest {
                 .amount(BigDecimal.valueOf(20.22))
                 .build());
 
+        when(accountRepository.existsById(any())).thenReturn(true);
         when(operationTypeRepository.findById(any())).thenReturn(Optional.of(operationType));
         when(repository.save(any())).thenReturn(spyTransaction);
 
@@ -81,6 +98,7 @@ public class TransactionServiceImplTest {
                 .amount(BigDecimal.valueOf(-20.22))
                 .build());
 
+        when(accountRepository.existsById(any())).thenReturn(true);
         when(operationTypeRepository.findById(any())).thenReturn(Optional.of(operationType));
         when(repository.save(any())).thenReturn(spyTransaction);
 

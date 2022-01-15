@@ -2,19 +2,19 @@ version: '3.8'
 
 services:
 
-  # api:
-  #   image: debona-back-end
-  #   container_name: api-back-end
-  #   restart: always
-  #   build:
-  #     context: "../back-end"
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - 8081:8080
-  #   depends_on:
-  #     - mariadb
-  #   networks:
-  #     - sboot_network
+  api:
+    image: sboot-account-transactions
+    container_name: api-back-end
+    restart: always
+    build:
+      context: "./back-end"
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - mariadb
+    networks:
+      - sboot_network
 
   mariadb:
     container_name: maria-db
@@ -37,7 +37,7 @@ services:
           - maria-db
 
 networks:
-  sboot_network: {}
+  sboot_network: { }
 
 volumes:
   mariadb_vol:

@@ -21,7 +21,8 @@ public class ApplicationConfig {
 
     @Bean
     public TransactionService transactionService(TransactionRepository repository,
-                                                 OperationTypeRepository operationTypeRepository) {
-        return new TransactionServiceImpl(repository, operationTypeRepository);
+                                                 OperationTypeRepository operationTypeRepository,
+                                                 AccountRepository accountRepository) {
+        return new TransactionServiceImpl(repository, accountRepository, operationTypeRepository);
     }
 }

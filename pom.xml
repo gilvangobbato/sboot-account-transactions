@@ -76,7 +76,7 @@
 									<artifactId>${project.artifactId}</artifactId>
 									<version>${project.version}</version>
 									<overWrite>true</overWrite>
-									<outputDirectory>./docker</outputDirectory>
+									<outputDirectory>./docker/back-end</outputDirectory>
 									<destFileName>${project.artifactId}.jar</destFileName>
 								</artifactItem>
 							</artifactItems>
