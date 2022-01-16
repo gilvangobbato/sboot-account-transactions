@@ -24,6 +24,7 @@ Método POST - http://localhost:8080/v1/accounts
 
 Possíveis códigos de status da resposta:
   * 201 - Conta criada com sucesso
+  * 412 - Dados da conta inválidos
   * 422 - Conta já cadastrada
   * 500 - Erros internos
     
