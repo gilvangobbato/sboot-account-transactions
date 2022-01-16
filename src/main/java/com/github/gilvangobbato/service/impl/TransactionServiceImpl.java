@@ -39,7 +39,7 @@ public class TransactionServiceImpl implements TransactionService {
         OperationType operationType = operationTypeRepository.findById(transaction.getOperationTypeId())
                 .orElseThrow(() -> new NoSuchElementException(Constants.OPERATION_NOT_FOUND));
 
-        // Convert the amount to positive to calculate with the multiplier registered in the operationType
+        // Convert the amount to positive to calculate with the multiplier defined in the operationType
         BigDecimal amount = transaction.getAmount().abs().multiply(BigDecimal.valueOf(operationType.getMultiplier()));
         transaction.setAmount(amount);
         transaction.setEventDate(LocalDateTime.now());

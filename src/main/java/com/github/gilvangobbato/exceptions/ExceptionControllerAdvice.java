@@ -25,6 +25,16 @@ public class ExceptionControllerAdvice {
                 .build();
     }
 
+    @ExceptionHandler(PreconditionFailedException.class)
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
+    public ResponseRepresentation handleAlreadyExists(PreconditionFailedException exception) {
+        return ResponseRepresentation.builder()
+                .codigoStatus(HttpStatus.PRECONDITION_FAILED.value())
+                .mensagem(exception.getMessage())
+                .data(LocalDateTime.now().toString())
+                .build();
+    }
+
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     public ResponseRepresentation handleNoSuchElementException(NoSuchElementException exception) {

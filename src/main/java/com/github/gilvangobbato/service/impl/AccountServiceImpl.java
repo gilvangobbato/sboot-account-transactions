@@ -3,6 +3,7 @@ package com.github.gilvangobbato.service.impl;
 import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.exceptions.AlreadyExistsException;
 import com.github.gilvangobbato.domain.repository.AccountRepository;
+import com.github.gilvangobbato.exceptions.PreconditionFailedException;
 import com.github.gilvangobbato.service.AccountService;
 import com.github.gilvangobbato.util.Constants;
 import lombok.AllArgsConstructor;
@@ -16,15 +17,13 @@ public class AccountServiceImpl implements AccountService {
 
     /**
      * Create an account, if the account number is already registered will throw AlreadyExistsException
+     *
      * @param account
      * @return
      */
     @Override
     public Account create(Account account) {
-        if (repository.existsByDocumentNumber(account.getDocumentNumber())) {
-            throw new AlreadyExistsException(Constants.ACCOUNT_ALREADY_EXISTS_MESSAGE);
-        }
-
+        this.validate(account);
         return repository.save(account);
     }
 
@@ -37,5 +36,20 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findById(Long accountId) {
         return repository.findById(accountId).orElse(null);
+    }
+
+
+    /*
+     * Validate account details
+     */
+    private void validate(Account account) {
+        if (account.getDocumentNumber() == null
+                || account.getDocumentNumber().isEmpty()
+                || (account.getDocumentNumber().length() != 11 && account.getDocumentNumber().length() != 14)) {
+            throw new PreconditionFailedException(Constants.ACCOUNT_DOCUMENT_INVALID_MESSAGE);
+        }
+        if (repository.existsByDocumentNumber(account.getDocumentNumber())) {
+            throw new AlreadyExistsException(Constants.ACCOUNT_ALREADY_EXISTS_MESSAGE);
+        }
     }
 }
