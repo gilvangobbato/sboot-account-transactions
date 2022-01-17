@@ -6,6 +6,7 @@ import com.github.gilvangobbato.domain.repository.AccountRepository;
 import com.github.gilvangobbato.exceptions.PreconditionFailedException;
 import com.github.gilvangobbato.service.AccountService;
 import com.github.gilvangobbato.util.Constants;
+import com.github.gilvangobbato.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +48,9 @@ public class AccountServiceImpl implements AccountService {
                 || account.getDocumentNumber().isEmpty()
                 || (account.getDocumentNumber().length() != 11 && account.getDocumentNumber().length() != 14)) {
             throw new PreconditionFailedException(Constants.ACCOUNT_DOCUMENT_INVALID_MESSAGE);
+        }
+        if(!StringUtils.isOnlyNumbers(account.getDocumentNumber())){
+            throw new PreconditionFailedException(Constants.ACCOUNT_DOCUMENT_ONLY_NUMBERS_MESSAGE);
         }
         if (repository.existsByDocumentNumber(account.getDocumentNumber())) {
             throw new AlreadyExistsException(Constants.ACCOUNT_ALREADY_EXISTS_MESSAGE);

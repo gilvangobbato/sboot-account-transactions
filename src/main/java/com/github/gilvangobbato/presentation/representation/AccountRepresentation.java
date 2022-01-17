@@ -3,12 +3,8 @@ package com.github.gilvangobbato.presentation.representation;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @Builder
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 public class AccountRepresentation {
 
     @JsonProperty("account_id")
