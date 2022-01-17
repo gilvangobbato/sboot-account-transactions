@@ -10,6 +10,8 @@ import com.github.gilvangobbato.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
+
 @Slf4j
 @AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
@@ -39,7 +41,6 @@ public class AccountServiceImpl implements AccountService {
         return repository.findById(accountId).orElse(null);
     }
 
-
     /*
      * Validate account details
      */
@@ -49,8 +50,11 @@ public class AccountServiceImpl implements AccountService {
                 || (account.getDocumentNumber().length() != 11 && account.getDocumentNumber().length() != 14)) {
             throw new PreconditionFailedException(Constants.ACCOUNT_DOCUMENT_INVALID_MESSAGE);
         }
-        if(!StringUtils.isOnlyNumbers(account.getDocumentNumber())){
+        if (!StringUtils.isOnlyNumbers(account.getDocumentNumber())) {
             throw new PreconditionFailedException(Constants.ACCOUNT_DOCUMENT_ONLY_NUMBERS_MESSAGE);
+        }
+        if (account.getLimit() == null || account.getLimit().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new PreconditionFailedException(Constants.ACCOUNT_LIMIT_INVALID_MESSAGE);
         }
         if (repository.existsByDocumentNumber(account.getDocumentNumber())) {
             throw new AlreadyExistsException(Constants.ACCOUNT_ALREADY_EXISTS_MESSAGE);

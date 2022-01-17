@@ -4,6 +4,7 @@ USE backtest_transactions;
 CREATE TABLE IF NOT EXISTS accounts(
     account_id BIGINT(20) NOT NULL AUTO_INCREMENT,
     document_number VARCHAR(14) NOT NULL,
+    credit_limit DECIMAL(18, 2) NOT NULL,
     PRIMARY KEY (account_id)
 );
 
@@ -24,7 +25,7 @@ CREATE TABLE IF NOT EXISTS transactions(
     transaction_id BIGINT(20) NOT NULL AUTO_INCREMENT,
     account_id BIGINT(20) NOT NULL,
     operation_type_id BIGINT(20) NOT NULL,
-    amount BIGINT(20) NOT NULL,
+    amount DECIMAL(18,2) NOT NULL,
     event_date DATETIME NOT NULL,
     PRIMARY KEY (transaction_id),
     CONSTRAINT FK_transaction_account_id FOREIGN KEY (account_id) REFERENCES accounts (account_id),

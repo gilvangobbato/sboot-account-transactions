@@ -7,4 +7,6 @@ public class Constants {
     public static final String ACCOUNT_NOT_FOUND = "Account not found";
     public static final String ACCOUNT_DOCUMENT_INVALID_MESSAGE = "Invalid document number, it must to be a number with 11 or 14 digits.";
     public static final String ACCOUNT_DOCUMENT_ONLY_NUMBERS_MESSAGE = "Document must to be only numbers.";
+    public static final String ACCOUNT_LIMIT_INVALID_MESSAGE = "Invalid credit limit";
+    public static final String ACCOUNT_LIMIT_MESSAGE = "Total transactions is greater than account limit";
 }

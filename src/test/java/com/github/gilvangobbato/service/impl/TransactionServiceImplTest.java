@@ -1,10 +1,12 @@
 package com.github.gilvangobbato.service.impl;
 
+import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.domain.entities.OperationType;
 import com.github.gilvangobbato.domain.entities.Transaction;
 import com.github.gilvangobbato.domain.repository.AccountRepository;
 import com.github.gilvangobbato.domain.repository.OperationTypeRepository;
 import com.github.gilvangobbato.domain.repository.TransactionRepository;
+import com.github.gilvangobbato.exceptions.PreconditionFailedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,7 +42,7 @@ public class TransactionServiceImplTest {
         OperationType operationType = OperationType.builder()
                 .operationTypeId(10L)
                 .build();
-        when(accountRepository.existsById(any())).thenReturn(false);
+        when(accountRepository.findById(any())).thenReturn(Optional.empty());
 
         assertThrows(NoSuchElementException.class, () -> service.create(Transaction.builder().build()));
     }
@@ -50,20 +52,30 @@ public class TransactionServiceImplTest {
      */
     @Test
     void createNoSuchOperationType() {
+        Account account = Account.builder()
+                .accountId(1L)
+                .documentNumber("123456")
+                .limit(BigDecimal.valueOf(1000))
+                .build();
         OperationType operationType = OperationType.builder()
                 .operationTypeId(10L)
                 .build();
-        when(accountRepository.existsById(any())).thenReturn(true);
+        when(accountRepository.findById(any())).thenReturn(Optional.of(account));
         when(operationTypeRepository.findById(any())).thenThrow(new NoSuchElementException());
 
         assertThrows(NoSuchElementException.class, () -> service.create(Transaction.builder().build()));
     }
 
     /*
-        When the operation has a negative multiplier the transaction needs to be save with negative amount
+        When the operation has a negative multiplier the transaction needs to be saved with negative amount
      */
     @Test
     void createNegativeValue() {
+        Account account = Account.builder()
+                .accountId(1L)
+                .documentNumber("123456")
+                .limit(BigDecimal.valueOf(1000))
+                .build();
         OperationType operationType = OperationType.builder()
                 .operationTypeId(1L)
                 .multiplier(-1)
@@ -74,20 +86,54 @@ public class TransactionServiceImplTest {
                 .amount(BigDecimal.valueOf(20.22))
                 .build());
 
-        when(accountRepository.existsById(any())).thenReturn(true);
+        when(accountRepository.findById(any())).thenReturn(Optional.of(account));
         when(operationTypeRepository.findById(any())).thenReturn(Optional.of(operationType));
         when(repository.save(any())).thenReturn(spyTransaction);
+        when(repository.getTotalTransactions(any())).thenReturn(BigDecimal.valueOf(100));
 
         Transaction entity = service.create(spyTransaction);
 
         Mockito.verify(spyTransaction).setAmount(BigDecimal.valueOf(-20.22));
     }
 
+
     /*
-        When the operation has a positive multiplier the transaction needs to be save with positive amount
+        When the account do not have credit to make another debit needs throw PreconditionFailedException.class
+     */
+    @Test
+    void createNegativeValueLimit() {
+        Account account = Account.builder()
+                .accountId(1L)
+                .documentNumber("123456")
+                .limit(BigDecimal.valueOf(1000))
+                .build();
+        OperationType operationType = OperationType.builder()
+                .operationTypeId(1L)
+                .multiplier(-1)
+                .build();
+        Transaction transaction = Transaction.builder()
+                .accountId(1L)
+                .operationTypeId(1L)
+                .amount(BigDecimal.valueOf(10))
+                .build();
+
+        when(accountRepository.findById(any())).thenReturn(Optional.of(account));
+        when(operationTypeRepository.findById(any())).thenReturn(Optional.of(operationType));
+        when(repository.getTotalTransactions(any())).thenReturn(BigDecimal.valueOf(-1000));
+
+        assertThrows(PreconditionFailedException.class, () -> service.create(transaction));
+    }
+
+    /*
+        When the operation has a positive multiplier the transaction needs to be saved with positive amount
      */
     @Test
     void createPositiveValue() {
+        Account account = Account.builder()
+                .accountId(1L)
+                .documentNumber("123456")
+                .limit(BigDecimal.valueOf(1000))
+                .build();
         OperationType operationType = OperationType.builder()
                 .operationTypeId(4L)
                 .multiplier(1)
@@ -98,7 +144,7 @@ public class TransactionServiceImplTest {
                 .amount(BigDecimal.valueOf(-20.22))
                 .build());
 
-        when(accountRepository.existsById(any())).thenReturn(true);
+        when(accountRepository.findById(any())).thenReturn(Optional.of(account));
         when(operationTypeRepository.findById(any())).thenReturn(Optional.of(operationType));
         when(repository.save(any())).thenReturn(spyTransaction);
 

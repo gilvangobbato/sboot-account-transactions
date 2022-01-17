@@ -13,6 +13,7 @@ public class AccountMapper implements RepresentationMapper<AccountRepresentation
         return AccountRepresentation.builder()
                 .accountId(entity.getAccountId())
                 .documentNumber(entity.getDocumentNumber())
+                .limit(entity.getLimit())
                 .build();
     }
 
@@ -21,6 +22,7 @@ public class AccountMapper implements RepresentationMapper<AccountRepresentation
         return Account.builder()
                 .accountId(representation.getAccountId())
                 .documentNumber(representation.getDocumentNumber())
+                .limit(representation.getLimit())
                 .build();
     }
 }

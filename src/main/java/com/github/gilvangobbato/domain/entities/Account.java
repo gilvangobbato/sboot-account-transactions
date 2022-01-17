@@ -3,6 +3,7 @@ package com.github.gilvangobbato.domain.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Objects;
 
 @Getter
@@ -22,6 +23,9 @@ public class Account {
 
     @Column(name = "document_number", length = 14, nullable = false)
     private String documentNumber;
+
+    @Column(name="credit_limit", nullable = false)
+    private BigDecimal limit;
 
     @Override
     public boolean equals(Object o) {

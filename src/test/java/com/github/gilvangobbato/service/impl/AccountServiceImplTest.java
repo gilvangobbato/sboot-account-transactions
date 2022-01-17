@@ -3,12 +3,14 @@ package com.github.gilvangobbato.service.impl;
 import com.github.gilvangobbato.domain.entities.Account;
 import com.github.gilvangobbato.exceptions.AlreadyExistsException;
 import com.github.gilvangobbato.domain.repository.AccountRepository;
+import com.github.gilvangobbato.exceptions.PreconditionFailedException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,6 +31,7 @@ public class AccountServiceImplTest {
         Account entity = Account.builder()
                 .accountId(1L)
                 .documentNumber("12365478998745")
+                .limit(BigDecimal.valueOf(10))
                 .build();
 
         when(repository.existsByDocumentNumber(any())).thenReturn(false);
@@ -41,18 +44,28 @@ public class AccountServiceImplTest {
 
     }
 
-
     @Test
     void createAlreadyExistsException() {
         Account entity = Account.builder()
                 .accountId(1L)
                 .documentNumber("12365478998745")
+                .limit(BigDecimal.valueOf(10))
                 .build();
 
         when(repository.existsByDocumentNumber(any())).thenReturn(true);
 
         assertThrows(AlreadyExistsException.class, () -> service.create(entity));
+    }
 
+    @Test
+    void createPreconditionFailedException() {
+        Account entity = Account.builder()
+                .accountId(1L)
+                .documentNumber("12365478998745")
+                .limit(BigDecimal.valueOf(-10))
+                .build();
+
+        assertThrows(PreconditionFailedException.class, () -> service.create(entity));
     }
 
     @Test
@@ -60,6 +73,7 @@ public class AccountServiceImplTest {
         Account entity = Account.builder()
                 .accountId(1L)
                 .documentNumber("12365478998745")
+                .limit(BigDecimal.valueOf(10))
                 .build();
 
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -75,6 +89,7 @@ public class AccountServiceImplTest {
         Account entity = Account.builder()
                 .accountId(1L)
                 .documentNumber("12365478998745")
+                .limit(BigDecimal.valueOf(10))
                 .build();
 
         when(repository.findById(1L)).thenReturn(Optional.empty());
