@@ -31,7 +31,7 @@ public class AccountController {
                 .body(mapper.toRepresentation(entity));
     }
 
-    @GetMapping(value = "/{accountId}")
+    @GetMapping(value = "/{accountId}", consumes = MediaType.ALL_VALUE)
     public ResponseEntity<AccountRepresentation> getAccountDetails(@PathVariable("accountId") Long accountId) {
         Account account = service.findById(accountId);
         if(account == null){
