@@ -1,7 +1,9 @@
 package com.github.gilvangobbato.presentation.representation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
@@ -9,6 +11,7 @@ import java.math.BigDecimal;
 @Builder
 public class AccountRepresentation {
 
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     @JsonProperty("account_id")
     private Long accountId;
     @JsonProperty("document_number")

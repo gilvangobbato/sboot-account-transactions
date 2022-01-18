@@ -4,6 +4,7 @@ import com.github.gilvangobbato.domain.entities.Transaction;
 import com.github.gilvangobbato.presentation.mapper.TransactionMapper;
 import com.github.gilvangobbato.presentation.representation.TransactionRepresentation;
 import com.github.gilvangobbato.service.TransactionService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Transactions", description = "Create transactions")
 @RestController
 @RequestMapping(value = "v1/transactions",
         produces = MediaType.APPLICATION_JSON_VALUE,

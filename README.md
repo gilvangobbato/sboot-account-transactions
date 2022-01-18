@@ -11,7 +11,8 @@ Para executar a aplicação é necessário ter instalado em sua máquina o Docke
 
 ## Utilizando os serviços
 
-Todos os métodos abaixo podem ser utilizados no Postman apenas copiando o curl.
+Através do link http://localhost:8080/swagger-ui.html você terá acesso as APIs e poderá utilizar os serviços. 
+Abaixo segue o "curl" dos métodos que podem ser utilizados no Postman apenas copiando-o.
 ### Criação de conta
 
 Método POST - http://localhost:8080/v1/accounts
@@ -19,7 +20,8 @@ Método POST - http://localhost:8080/v1/accounts
 > curl --location --request POST 'localhost:8080/v1/accounts' \
 > --header 'Content-Type: application/json' \
 > --data-raw '{
->     "document_number": "32548436549"
+>     "document_number": "32548436549",
+>     "credit_limit": 1000
 > }'
 
 Possíveis códigos de status da resposta:
